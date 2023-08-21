@@ -502,6 +502,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 447, y: 117.5}
   m_Pivot: {x: 1, y: 0}
+--- !u!1 &344154894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 344154895}
+  m_Layer: 0
+  m_Name: particalPointDash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &344154895
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344154894}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 811279465}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &423477130
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,6 +1219,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   PosSmoothTime: 0.1
+  movementSineSpeed: 10
+  movementSineForce: 0.5
+  dashFroce: 3
+  dashDelay: 1
+  dashParticalPrefab: {fileID: 9098217463504908960, guid: 02d49f9d8cb684b45a625b99c3d56d3f, type: 3}
+  dashParticalPoint: {fileID: 344154895}
+  dashKey: 32
 --- !u!212 &811279464
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1251,7 +1289,8 @@ Transform:
   m_LocalPosition: {x: -0.066284984, y: -1.2895722, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 344154895}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
