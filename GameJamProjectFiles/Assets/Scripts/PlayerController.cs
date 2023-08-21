@@ -11,7 +11,11 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
 
     private float rotationSpeedDynamic;
+    public LayerMask groundLayer;
 
+
+    [Range(0, 1)] public float PosSmoothTime;
+    Vector2 refVelocity;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -21,7 +25,10 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.W))
         {
-            movement();
+            if(!Physics2D.OverlapCircle(transform.position + transform.up * 0.3f, 0.3f, groundLayer))
+            {
+                movement();
+            }
             mouseLook();
         }
     }
@@ -29,7 +36,8 @@ public class PlayerController : MonoBehaviour
     void movement()
     {
         Vector2 direction = transform.up * swimForce;
-        rb.velocity = direction;
+        Vector2 smoothedPos = Vector2.SmoothDamp(rb.velocity, direction, ref refVelocity, PosSmoothTime);
+        rb.velocity = smoothedPos;
     }
     void mouseLook()
     {
@@ -46,5 +54,14 @@ public class PlayerController : MonoBehaviour
 
         // Smoothly interpolate towards the target rotation
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeedDynamic * Time.deltaTime);
+    }
+
+    /// <summary>
+    /// Callback to draw gizmos only if the object is selected.
+    /// </summary>
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position + transform.up  * 0.3f, 0.3f);
     }
 }
