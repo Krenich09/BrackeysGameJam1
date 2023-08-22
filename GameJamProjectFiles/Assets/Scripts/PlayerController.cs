@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour
     public Transform dashParticalPoint;
     public KeyCode dashKey;
 
+    [Header("Oxygen")]
+    public float oxygenAmount = 100;
+    public float maxOxygen = 100;
+    public float depletionSpeed = 3f;
 
     private Rigidbody2D rb;
     private float rotationSpeedDynamic;
@@ -46,7 +50,12 @@ public class PlayerController : MonoBehaviour
                 dashMovement();
             }
             mouseLook();
-        }        
+        }
+
+        //Deplete Oxygen
+        oxygenAmount -= Time.deltaTime * depletionSpeed;
+
+        //When oxygenAmount = 0, do loss function
     }
 
     void dashMovement()
