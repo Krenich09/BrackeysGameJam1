@@ -29,6 +29,16 @@ public class DepthMeter : MonoBehaviour
     {
         CalculateDistance();
         UpdateNumbers();
+
+        if(Vector2.Distance(player.transform.position, UI_Manager.instance.heightLine.position) < 3 && Mathf.Abs(GameManager.instance.controller.rb.velocity.magnitude) > 3 && 
+        GameManager.instance.checkIfFacingDown(GameManager.instance.controller.transform, 65))
+        {
+            GameManager.instance.randomObsticalSpawn.doSpawn = true;
+        }
+        else
+        {
+            GameManager.instance.randomObsticalSpawn.doSpawn = false;
+        }
     }
 
     void CalculateDistance()

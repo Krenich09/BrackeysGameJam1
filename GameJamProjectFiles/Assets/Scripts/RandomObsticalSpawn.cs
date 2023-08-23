@@ -1,29 +1,52 @@
- using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RandomObsticalSpawn : MonoBehaviour
 {
-    public GameObject prefab;
-    public int rate;
-    public float size;
-    public List<GameObject> objects;
-    public List<int> chance2;
+    public Transform spawnNearTarget;
+    public List<GameObject> obstaclePrefabs; // List of obstacle prefabs
+    public float spawnDistanceDown = 10f; // Radius around the player where obstacles can spawn
+    public float spawnInterval = 2f; // Time interval between spawns
+    public List<float> obstaclePercentages; // Percentages of each obstacle in the list
+    public Transform spawnParent;
+    public bool doSpawn = false;
+
+
+    private float currentSpawnDelay;
+    void Start()
+    {
+        currentSpawnDelay = spawnInterval;
+    }
+
     void Update()
     {
-        List<GameObject> objects2 = new List<GameObject>();
-        int chance = UnityEngine.Random.Range(0, rate);
-        if (chance == 1)
+        if(GameManager.instance.gameStarted && doSpawn)
         {
-            for (int i = 0; i < objects.Count; i++)
+            currentSpawnDelay -= Time.deltaTime;
+            if(currentSpawnDelay <= 0)
             {
-                for (int i2 = 0; i2 < chance2[i2]; i2++)
+                spawnObstacle();
+                currentSpawnDelay = spawnInterval;
+                Debug.Log("Spawned Obstacle");
+            }
+        }
+    }
+
+    void spawnObstacle()
+    {
+        Vector3 spawnPosition = spawnNearTarget.position + Vector3.down * spawnDistanceDown + Vector3.right * Random.Range(-5, 5);
+
+            float totalPercentage = 0f;
+            float randomValue = Random.value;
+
+            for (int i = 0; i < obstaclePercentages.Count; i++)
+            {
+                totalPercentage += obstaclePercentages[i];
+                if (randomValue <= totalPercentage)
                 {
-                    objects2.Add(objects[i]);
+                    Instantiate(obstaclePrefabs[i], spawnPosition, Quaternion.identity, spawnParent);
                 }
             }
-            var position = transform.position + new Vector3(UnityEngine.Random.Range(size, -size), 0, 0);
-            Instantiate(objects2[UnityEngine.Random.Range(0, objects2.Count)], position, Quaternion.identity);
-        }
     }
 }

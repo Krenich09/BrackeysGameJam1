@@ -203,6 +203,8 @@ GameObject:
   - component: {fileID: 3670282}
   - component: {fileID: 3670284}
   - component: {fileID: 3670285}
+  - component: {fileID: 3670286}
+  - component: {fileID: 3670287}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -259,6 +261,8 @@ MonoBehaviour:
   controller: {fileID: 811279462}
   meter: {fileID: 1950406673}
   camController: {fileID: 519420033}
+  randomObsticalSpawn: {fileID: 3670286}
+  healthSystem: {fileID: 3670287}
   gameStarted: 0
 --- !u!114 &3670285
 MonoBehaviour:
@@ -276,6 +280,40 @@ MonoBehaviour:
   startGameCanvas: {fileID: 1366845271}
   gameplayCanvas: {fileID: 821481870}
   dashDelayCircle: {fileID: 1715256825}
+--- !u!114 &3670286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3670281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73aaacb05b21c5948bfdc568a64d5d58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnNearTarget: {fileID: 1448811780}
+  obstaclePrefabs:
+  - {fileID: 936210906923944341, guid: d4ec7e56081bf1d4c82f0599b5180cb0, type: 3}
+  spawnDistanceDown: 10
+  spawnInterval: 2
+  obstaclePercentages:
+  - 1
+  spawnParent: {fileID: 1560170557}
+  doSpawn: 0
+--- !u!114 &3670287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3670281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f74c5417ee8e7974ebcf75eb36e07442, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHearts: 3
 --- !u!1 &10302197
 GameObject:
   m_ObjectHideFlags: 0
@@ -2862,7 +2900,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000efd7a255
+  m_ApplyToSortingLayers: 000000002fabc4b5efd7a255
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -3674,7 +3712,7 @@ GameObject:
   - component: {fileID: 811279468}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3700,6 +3738,7 @@ MonoBehaviour:
   PosSmoothTime: 0.1
   movementSineSpeed: 10
   movementSineForce: 0.5
+  canMove: 1
   dashFroce: 3
   dashDelay: 1
   dashParticalPrefab: {fileID: 9098217463504908960, guid: 02d49f9d8cb684b45a625b99c3d56d3f, type: 3}
@@ -8150,7 +8189,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1436735471
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 985bcde597db4f342ad77edb59b81d2e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.22745098}
@@ -9144,6 +9183,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1557523446}
   m_CullTransparentMesh: 1
+--- !u!1 &1560170556
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1560170557}
+  m_Layer: 0
+  m_Name: Obstacles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1560170557
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560170556}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1709900790}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1582441466
 GameObject:
   m_ObjectHideFlags: 0
@@ -9706,6 +9776,7 @@ Transform:
   m_Children:
   - {fileID: 295257783}
   - {fileID: 564255475}
+  - {fileID: 1560170557}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

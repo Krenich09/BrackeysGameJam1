@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [Range(0, 1)] public float PosSmoothTime;
     public float movementSineSpeed = 1;
     public float movementSineForce = 1;
+    public bool canMove;
 
     [Header("Dash")]
     public float dashFroce;
@@ -31,12 +32,14 @@ public class PlayerController : MonoBehaviour
     private float rotationSpeedDynamic;
     private float sineX;
     private float startValuemovementSineForce;
+    private float startRotationSpeed;
     Vector2 refVelocity;
     [HideInInspector] public float dashDelayCurrent;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         startValuemovementSineForce = movementSineForce;
+        startRotationSpeed = rotationSpeed;
         
     }
 
@@ -44,7 +47,7 @@ public class PlayerController : MonoBehaviour
     {
         if(GameManager.instance.gameStarted == false) return;
 
-        if(Input.GetKey(KeyCode.W))
+        if(Input.GetKey(KeyCode.W) && canMove)
         {
             if(!Physics2D.OverlapCircle(transform.position + transform.up * 0.3f, 0.3f, groundLayer))
             {
@@ -59,6 +62,11 @@ public class PlayerController : MonoBehaviour
         {
             movementSineForce -= Time.deltaTime;
             movementSineForce = Mathf.Clamp(movementSineForce, startValuemovementSineForce, movementSineForce);
+        }
+        if(rotationSpeed < startRotationSpeed)
+        {
+            rotationSpeed += Time.deltaTime * 8;
+            rotationSpeed = Mathf.Clamp(rotationSpeed, rotationSpeed, startRotationSpeed);
         }
         //Deplete Oxygen
         oxygenAmount -= Time.deltaTime * depletionSpeed;
@@ -117,5 +125,17 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position + transform.up  * 0.3f, 0.3f);
+    }
+
+    public void freezePlayer(float time)
+    {
+        canMove = false;
+        rotationSpeed = 0;
+        Invoke("unfreeze", time);
+    }
+    void unfreeze()
+    {
+        rotationSpeed = 0;
+        canMove = true;
     }
 }
