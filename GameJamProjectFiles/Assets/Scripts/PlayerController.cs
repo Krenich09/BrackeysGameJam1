@@ -27,12 +27,12 @@ public class PlayerController : MonoBehaviour
     public float maxOxygen = 100;
     public float depletionSpeed = 3f;
 
-    private Rigidbody2D rb;
+    [HideInInspector] public Rigidbody2D rb;
     private float rotationSpeedDynamic;
     private float sineX;
     private float startValuemovementSineForce;
     Vector2 refVelocity;
-    private float dashDelayCurrent;
+    [HideInInspector] public float dashDelayCurrent;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,6 +42,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if(GameManager.instance.gameStarted == false) return;
+
         if(Input.GetKey(KeyCode.W))
         {
             if(!Physics2D.OverlapCircle(transform.position + transform.up * 0.3f, 0.3f, groundLayer))
@@ -51,7 +53,13 @@ public class PlayerController : MonoBehaviour
             }
             mouseLook();
         }
+        dashDelayCurrent -= Time.deltaTime;
 
+        if(movementSineForce > 0.5)
+        {
+            movementSineForce -= Time.deltaTime;
+            movementSineForce = Mathf.Clamp(movementSineForce, startValuemovementSineForce, movementSineForce);
+        }
         //Deplete Oxygen
         oxygenAmount -= Time.deltaTime * depletionSpeed;
 
@@ -61,7 +69,6 @@ public class PlayerController : MonoBehaviour
     void dashMovement()
     {
         // Dash movement
-        dashDelayCurrent -= Time.deltaTime;
 
         if(Input.GetKeyDown(dashKey) && dashDelayCurrent <= 0)
         {
@@ -70,8 +77,6 @@ public class PlayerController : MonoBehaviour
             sineX = 0;
             movementSineForce *= dashFroce;
         }
-        movementSineForce -= Time.deltaTime;
-        movementSineForce = Mathf.Clamp(movementSineForce, startValuemovementSineForce, movementSineForce);
     }
 
     void movement()

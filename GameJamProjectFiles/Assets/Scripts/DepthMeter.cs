@@ -10,7 +10,7 @@ public class DepthMeter : MonoBehaviour
 
     private GameObject player;
     private float distance;
-    private float currentHighScore;
+    [HideInInspector] public float currentHighScore;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +36,6 @@ public class DepthMeter : MonoBehaviour
         if (distance < Vector2.Distance(player.transform.position, Vector2.zero))
         {
             distance = Vector2.Distance(player.transform.position, Vector2.zero);
-            distance = Mathf.Round(distance);
         }
         else
         {
@@ -49,7 +48,7 @@ public class DepthMeter : MonoBehaviour
 
     void UpdateNumbers()
     {
-        char[] numberChars = distance.ToString().ToCharArray(); //Splits distance into char array
+        char[] numberChars = Mathf.Round(currentHighScore).ToString().ToCharArray(); //Splits distance into char array
 
         if (distance.ToString() != numberChars.ToString())
         {
