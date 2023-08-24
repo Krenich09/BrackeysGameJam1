@@ -5,7 +5,8 @@ using UnityEngine;
 public class PowerUps : MonoBehaviour
 {
     public GameObject Player;
-
+    private bool ShieldCooled = true;
+    public bool shieldOn;
     private void Start()
     {
         Player = FindAnyObjectByType<PlayerController>().gameObject;
@@ -13,7 +14,10 @@ public class PowerUps : MonoBehaviour
 
     public void ShieldPowerUp()
     {
-        StartCoroutine(Sheild());
+        if (ShieldCooled)
+        {
+            StartCoroutine(Sheild());
+        }
     }
 
     public void OxygenBoostPowerup()
@@ -28,9 +32,15 @@ public class PowerUps : MonoBehaviour
 
     IEnumerator Sheild()
     {
-        Player.GetComponent<PolygonCollider2D>().enabled = false;
+        shieldOn = true;
         yield return new WaitForSeconds(10f);
-        Player.GetComponent<PolygonCollider2D>().enabled = true;
+        shieldOn = false;
+    }
+    IEnumerator SheildCooldown()
+    {
+        ShieldCooled = false;
+        yield return new WaitForSeconds(10f);
+        ShieldCooled = true;
     }
 
 }

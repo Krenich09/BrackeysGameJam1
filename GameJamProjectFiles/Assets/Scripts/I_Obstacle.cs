@@ -11,7 +11,7 @@ public class I_Obstacle : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.collider.CompareTag(playerTag))
+        if(other.collider.CompareTag(playerTag) && GameObject.Find("GameManager").GetComponent<PowerUps>().shieldOn == false)
         {
             GameManager.instance.healthSystem.GetHit();
             onHit();

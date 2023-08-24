@@ -13,14 +13,18 @@ public class bombObstacle : I_Obstacle
     public override void onHit()
     {
         if(hitOnce) return;
-        
+        if (GameObject.Find("GameManager").GetComponent<PowerUps>().shieldOn == true)
+        {
+            return;
+        }
 
-        if(rb)
+        if (rb)
         {
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRad);
             for (int i = 0; i < colliders.Length; i++)
             {
                 Rigidbody2D rb = colliders[i].GetComponent<Rigidbody2D>();
+
                 if(!rb) continue;
 
                 if(rb.gameObject.CompareTag("Player"))
