@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class UI_Manager : MonoBehaviour
 {
     public static UI_Manager instance;
@@ -11,9 +11,24 @@ public class UI_Manager : MonoBehaviour
     public GameObject startGameCanvas, gameplayCanvas;
 
     public Image dashDelayCircle;
+    
+
+    [Header("Start Menu")]
+    public TMP_InputField newlyNameInput;
+    public TMP_Text changeNameErrorTxt;
+    public GameObject newlyCreatedPanel;
+
+    [Header("Leaderboard")]
+    public Transform leaderBoardParent;
+    public GameObject leaderBoardPrefab;
+
+
+    [Header("Settings Menu")]
+    public TMP_InputField changeNameSettingsInput;
+    public TMP_Text changeNamesettingsError;
     void Start()
     {
-        gameplayCanvas.SetActive(false  );
+        gameplayCanvas.SetActive(false);
         startGameCanvas.SetActive(true);
         instance = this;
     }
@@ -55,6 +70,14 @@ public class UI_Manager : MonoBehaviour
         startGameCanvas.SetActive(false);
         GameManager.instance.camController.target = GameManager.instance.controller.transform;
         GameManager.instance.controller.rb.gravityScale = 0.01f;
+    }
+    public void changeNameSettings()
+    {
+        GameManager.instance.playfabManager.changeDisplayName(changeNameSettingsInput.text, true);
+    }
+    public void changeNameNewly()
+    {
+        GameManager.instance.playfabManager.changeDisplayName();
     }
     
 }

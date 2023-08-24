@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public RandomObsticalSpawn randomObsticalSpawn;
     public HealthSystem healthSystem;
     public PowerUps powerUps;
+    public PlayfabManager playfabManager;
 
     public bool gameStarted;
 
