@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Settings")]
     public float rotationSpeed = 5f;  // Speed of rotation
     public float swimForce = 10f;       // Force applied for swimming
+    public float speedMultiplier = 1f; 
     public float offsetAngle = 90f;
     public LayerMask groundLayer;
     [Range(0, 1)] public float PosSmoothTime;
@@ -68,10 +69,20 @@ public class PlayerController : MonoBehaviour
             rotationSpeed += Time.deltaTime * 8;
             rotationSpeed = Mathf.Clamp(rotationSpeed, rotationSpeed, startRotationSpeed);
         }
+
         //Deplete Oxygen
         oxygenAmount -= Time.deltaTime * depletionSpeed;
 
-        //When oxygenAmount = 0, do loss function
+        if (oxygenAmount <= 0)
+        {
+            GameManager.instance.healthSystem.PlayerDie();
+        }
+
+        //Powerup Inputs
+        if (Input.GetKey(KeyCode.Q))
+        {
+           GameManager.instance.powerUps.ShieldPowerUp();
+        }
     }
 
     void dashMovement()
@@ -92,7 +103,7 @@ public class PlayerController : MonoBehaviour
         float addedY = movementSineForce * Mathf.Sin(movementSineSpeed * sineX) + movementSineForce + 1;
         sineX += Time.deltaTime;
 
-        Vector2 direction = transform.up * swimForce * addedY;
+        Vector2 direction = transform.up * (swimForce * speedMultiplier) * addedY;
         Vector2 smoothedPos = Vector2.SmoothDamp(rb.velocity, direction, ref refVelocity, PosSmoothTime);
         
         

@@ -37,7 +37,7 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    private void PlayerDie()
+    public void PlayerDie()
     {
         // Perform actions when the player dies
         Debug.Log("Player has died!");
