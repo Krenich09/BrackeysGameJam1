@@ -5,12 +5,18 @@ using UnityEngine;
 public class PowerUps : MonoBehaviour
 {
     public GameObject Player;
+
+    private void Start()
+    {
+        Player = FindAnyObjectByType<PlayerController>().gameObject;
+    }
+
     public void ShieldPowerUp()
     {
         StartCoroutine(Sheild());
     }
 
-    public void Oxygen()
+    public void OxygenBoostPowerup()
     {
         Player.GetComponent<PlayerController>().oxygenAmount = Player.GetComponent<PlayerController>().maxOxygen;
     }

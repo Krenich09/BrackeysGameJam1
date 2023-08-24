@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public CameraController camController;
     public RandomObsticalSpawn randomObsticalSpawn;
     public HealthSystem healthSystem;
+    public PowerUps powerUps;
 
     public bool gameStarted;
 

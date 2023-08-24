@@ -77,6 +77,12 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.instance.healthSystem.PlayerDie();
         }
+
+        //Powerup Inputs
+        if (Input.GetKey(KeyCode.Q))
+        {
+           GameManager.instance.powerUps.ShieldPowerUp();
+        }
     }
 
     void dashMovement()
