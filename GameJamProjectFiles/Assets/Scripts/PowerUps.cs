@@ -15,6 +15,11 @@ public class PowerUps : MonoBehaviour
         Player.GetComponent<PlayerController>().oxygenAmount = Player.GetComponent<PlayerController>().maxOxygen;
     }
 
+    public void ExtraLife()
+    {
+        GameObject.Find("GameManager").GetComponent<HealthSystem>().currentHearts = GameObject.Find("GameManager").GetComponent<HealthSystem>().currentHearts + 1;
+    }
+
     IEnumerator Sheild()
     {
         Player.GetComponent<PolygonCollider2D>().enabled = false;

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HealthSystem : MonoBehaviour
 {
     public int maxHearts = 3; // Total number of hearts
-    private int currentHearts; // Current number of hearts
+    public int currentHearts; // Current number of hearts
 
     public GameObject heartContainer;
     public GameObject heartIconPrefab;
