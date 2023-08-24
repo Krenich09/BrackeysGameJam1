@@ -39,7 +39,9 @@ public class HealthSystem : MonoBehaviour
 
     public void PlayerDie()
     {
+        if(GameManager.instance.gameEnded) return;
         // Perform actions when the player dies
         Debug.Log("Player has died!");
+        GameManager.instance.EndGame();
     }
 }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,7 +16,7 @@ public class GameManager : MonoBehaviour
     public HealthSystem healthSystem;
     public PowerUps powerUps;
     public PlayfabManager playfabManager;
-
+    public bool gameEnded;
     public bool gameStarted;
 
     void Start()
@@ -36,5 +38,20 @@ public class GameManager : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void EndGame()
+    {
+        Debug.Log("Game Ended");
+        gameEnded = true;
+
+        UI_Manager.instance.endGameUI();
+        playfabManager.sendLeaderboard(Mathf.RoundToInt(meter.currentHighScore));
+    }
+
+
+    public void restartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

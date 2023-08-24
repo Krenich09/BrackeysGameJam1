@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
     [Range(0, 1)]
     [SerializeField] private float smoothTime;
 
+    public Vector3 offset;
     private float velocityRef;
     private Vector3 vectorTargetpos;
     void FixedUpdate()
@@ -17,7 +18,7 @@ public class CameraController : MonoBehaviour
 
         if(target != null)
         {   
-            vectorTargetpos = target.position;
+            vectorTargetpos = target.position + offset;
         }
         else
         {

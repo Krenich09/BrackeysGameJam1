@@ -13,10 +13,6 @@ public class bombObstacle : I_Obstacle
     public override void onHit()
     {
         if(hitOnce) return;
-        if (GameObject.Find("GameManager").GetComponent<PowerUps>().shieldOn == true)
-        {
-            return;
-        }
 
         if (rb)
         {
@@ -26,6 +22,8 @@ public class bombObstacle : I_Obstacle
                 Rigidbody2D rb = colliders[i].GetComponent<Rigidbody2D>();
 
                 if(!rb) continue;
+
+                if(rb.gameObject.CompareTag("Player") && GameManager.instance.powerUps.shieldOn) continue;
 
                 if(rb.gameObject.CompareTag("Player"))
                 {

@@ -27,7 +27,7 @@ public class PowerUps : MonoBehaviour
 
     public void ExtraLife()
     {
-        GameObject.Find("GameManager").GetComponent<HealthSystem>().currentHearts = GameObject.Find("GameManager").GetComponent<HealthSystem>().currentHearts + 1;
+        GameObject.Find("GameManager").GetComponent<HealthSystem>().currentHearts += 1;
     }
 
     IEnumerator Sheild()

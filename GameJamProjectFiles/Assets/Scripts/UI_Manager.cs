@@ -8,10 +8,11 @@ public class UI_Manager : MonoBehaviour
     public static UI_Manager instance;
 
     public Transform heightLine;
-    public GameObject startGameCanvas, gameplayCanvas;
+    public GameObject startGameCanvas, gameplayCanvas, endGameCanvas, pauseCanvas;
 
     public Image dashDelayCircle;
-    
+    public TMP_Text depthTextGameEnd;
+    public bool isPaused;
 
     [Header("Start Menu")]
     public TMP_InputField newlyNameInput;
@@ -53,6 +54,11 @@ public class UI_Manager : MonoBehaviour
         {
             heightLine.gameObject.SetActive(false);
         }
+
+        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        {
+            switchPause();
+        }
     }
 
     /// <summary>
@@ -79,5 +85,28 @@ public class UI_Manager : MonoBehaviour
     {
         GameManager.instance.playfabManager.changeDisplayName();
     }
-    
+
+    public void endGameUI()
+    {
+        endGameCanvas.SetActive(true);
+        pauseCanvas.SetActive(false);
+        depthTextGameEnd.text = Mathf.Round(GameManager.instance.meter.currentHighScore).ToString() + "m";
+        Time.timeScale = 1;
+        isPaused = false;
+    }
+
+    public void switchPause()
+    {
+        if(GameManager.instance.gameStarted == false || GameManager.instance.gameEnded == true) return;
+        isPaused = !isPaused;
+        pauseCanvas.SetActive(isPaused);
+        if(isPaused)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+    } 
 }

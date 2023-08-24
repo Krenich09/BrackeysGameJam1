@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(GameManager.instance.gameStarted == false) return;
+        if(GameManager.instance.gameStarted == false || GameManager.instance.gameEnded == true) return;
 
         if(Input.GetKey(KeyCode.W) && canMove)
         {

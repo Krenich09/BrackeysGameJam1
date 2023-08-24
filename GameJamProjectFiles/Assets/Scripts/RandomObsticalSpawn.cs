@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class RandomObsticalSpawn : MonoBehaviour
 {
     public Transform spawnNearTarget;
-    public List<GameObject> obstaclePrefabs; // List of obstacle prefabs
+    public GameObject[] objectsToSpawn;
+    public List<float> spawnProbabilities;
+
+    
     public float spawnDistanceDown = 10f; // Radius around the player where obstacles can spawn
     public float spawnInterval = 2f; // Time interval between spawns
-    public List<float> obstaclePercentages; // Percentages of each obstacle in the list
     public Transform spawnParent;
     public bool doSpawn = false;
 
@@ -26,27 +29,39 @@ public class RandomObsticalSpawn : MonoBehaviour
             currentSpawnDelay -= Time.deltaTime;
             if(currentSpawnDelay <= 0)
             {
-                spawnObstacle();
+                Vector3 spawnPosition = spawnNearTarget.position + Vector3.down * spawnDistanceDown + Vector3.right * Random.Range(-5, 5);
+                SpawnObjectAtPosition(spawnPosition, objectsToSpawn);
                 currentSpawnDelay = spawnInterval;
                 Debug.Log("Spawned Obstacle");
             }
         }
     }
 
-    void spawnObstacle()
+    public void SpawnObjectAtPosition(Vector3 position, GameObject[] objectsToSpawn)
     {
-        Vector3 spawnPosition = spawnNearTarget.position + Vector3.down * spawnDistanceDown + Vector3.right * Random.Range(-5, 5);
+        if (objectsToSpawn.Length == 0 || spawnProbabilities.Count != objectsToSpawn.Length)
+        {
+            Debug.LogError("Number of objects to spawn and spawn probabilities list must match.");
+            return;
+        }
 
-            float totalPercentage = 0f;
-            float randomValue = Random.value;
+        float totalProbability = 0f;
+        foreach (float probability in spawnProbabilities)
+        {
+            totalProbability += probability;
+        }
 
-            for (int i = 0; i < obstaclePercentages.Count; i++)
+        float randomValue = Random.Range(0f, totalProbability);
+        float cumulativeProbability = 0f;
+
+        for (int i = 0; i < objectsToSpawn.Length; i++)
+        {
+            cumulativeProbability += spawnProbabilities[i];
+            if (randomValue <= cumulativeProbability)
             {
-                totalPercentage += obstaclePercentages[i];
-                if (randomValue <= totalPercentage)
-                {
-                    Instantiate(obstaclePrefabs[i], spawnPosition, Quaternion.identity, spawnParent);
-                }
+                Instantiate(objectsToSpawn[i], position, Quaternion.identity);
+                break;
             }
+        }
     }
 }

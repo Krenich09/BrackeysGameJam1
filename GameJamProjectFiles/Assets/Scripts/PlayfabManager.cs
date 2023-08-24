@@ -152,7 +152,7 @@ public class PlayfabManager : MonoBehaviour
         if(isOnline == false) return;
         var request = new GetLeaderboardRequest
         {
-            StatisticName = "Score",
+            StatisticName = "depth",
             StartPosition = 0,
             MaxResultsCount = 15
         };
@@ -175,8 +175,8 @@ public class PlayfabManager : MonoBehaviour
         {
             GameObject boardObj = Instantiate(UI_Manager.instance.leaderBoardPrefab, UI_Manager.instance.leaderBoardParent);
             boardObj.GetComponent<leaderBoardItem>().id.text = item.DisplayName;
-            boardObj.GetComponent<leaderBoardItem>().score.text = item.StatValue.ToString();
-            boardObj.GetComponent<leaderBoardItem>().position.text = (item.Position + 1).ToString();
+            boardObj.GetComponent<leaderBoardItem>().score.text = item.StatValue.ToString() + "m";
+            boardObj.GetComponent<leaderBoardItem>().position.text = "#" + (item.Position + 1).ToString();
         }
     }
 }
