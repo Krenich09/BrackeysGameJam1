@@ -46,6 +46,7 @@ public class DepthMeter : MonoBehaviour
         if (distance < Vector2.Distance(player.transform.position, Vector2.zero))
         {
             distance = Vector2.Distance(player.transform.position, Vector2.zero);
+            player.GetComponent<PlayerController>().speedMultiplier = Mathf.Clamp((distance / 1000) + 1f, 1f, 3f);
         }
         else
         {
