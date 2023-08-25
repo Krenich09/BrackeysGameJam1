@@ -314,7 +314,9 @@ MonoBehaviour:
   objectsToSpawn:
   - {fileID: 936210906923944341, guid: b55d6bfa0c6065d43924e795ac4e9004, type: 3}
   - {fileID: 8754865405319574262, guid: 2010981f40ee59c4a8d37824d8aca326, type: 3}
+  - {fileID: 936210906923944341, guid: d4ec7e56081bf1d4c82f0599b5180cb0, type: 3}
   spawnProbabilities:
+  - 100
   - 10
   - 1
   spawnDistanceDown: 10
@@ -7211,6 +7213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd20960c9d6775a409eb7193d6692ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shieldOn: 0
   rotationSpeed: 20
   swimForce: 4
   speedMultiplier: 1

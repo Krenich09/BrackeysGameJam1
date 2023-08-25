@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool shieldOn;
     [Header("Movement Settings")]
     public float rotationSpeed = 5f;  // Speed of rotation
     public float swimForce = 10f;       // Force applied for swimming
@@ -78,11 +79,13 @@ public class PlayerController : MonoBehaviour
             GameManager.instance.healthSystem.PlayerDie();
         }
 
-        //Powerup Inputs
-        if (Input.GetKey(KeyCode.Q))
-        {
-           GameManager.instance.powerUps.ShieldPowerUp();
-        }
+
+    }
+
+    public void ShieldPowerUp()
+    {
+        StartCoroutine(Sheild());
+
     }
 
     void dashMovement()
@@ -128,6 +131,15 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeedDynamic * Time.deltaTime);
         }
     }
+
+
+    IEnumerator Sheild()
+    {
+        shieldOn = true;
+        yield return new WaitForSeconds(10f);
+        shieldOn = false;
+    }
+
 
     /// <summary>
     /// Callback to draw gizmos only if the object is selected.
