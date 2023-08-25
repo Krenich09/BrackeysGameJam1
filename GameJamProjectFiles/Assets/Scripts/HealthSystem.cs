@@ -38,6 +38,7 @@ public class HealthSystem : MonoBehaviour
     }
     public void Heal()
     {
+
         if (currentHearts < 3)
         {
             heartIcons[currentHearts].gameObject.SetActive(true);

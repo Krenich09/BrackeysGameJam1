@@ -29,7 +29,7 @@ public class RandomObsticalSpawn : MonoBehaviour
             currentSpawnDelay -= Time.deltaTime;
             if(currentSpawnDelay <= 0)
             {
-                Vector3 spawnPosition = spawnNearTarget.position + Vector3.down * spawnDistanceDown + Vector3.right * Random.Range(-5, 5);
+                Vector3 spawnPosition = new Vector3(Random.Range(-5, 5), spawnNearTarget.position.y - spawnDistanceDown, 0);
                 SpawnObjectAtPosition(spawnPosition, objectsToSpawn);
                 currentSpawnDelay = spawnInterval;
                 Debug.Log("Spawned Obstacle");

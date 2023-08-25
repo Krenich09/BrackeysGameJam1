@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     public PlayfabManager playfabManager;
     public bool gameEnded;
     public bool gameStarted;
+    public Light2D globalLight;
 
     void Start()
     {
@@ -54,5 +56,22 @@ public class GameManager : MonoBehaviour
     public void restartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
+        if(controller.transform.position.y <= -20)
+        {
+            globalLight.intensity -= Time.deltaTime * 0.1f;
+            globalLight.intensity = Mathf.Clamp(globalLight.intensity, 0.5f, 1f);
+        }
+        else
+        {
+            globalLight.intensity += Time.deltaTime * 0.1f;
+            globalLight.intensity = Mathf.Clamp01(globalLight.intensity);
+        }
     }
 }

@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class HealthPowerUp : MonoBehaviour
 {
-    void OnCollisionEnter2D(Collision2D collision)
+
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
+            Instantiate(UI_Manager.instance.healthPowerUpPartical, transform.position, Quaternion.identity);
             GameManager.instance.healthSystem.Heal();
             Destroy(gameObject);
 

@@ -27,6 +27,11 @@ public class UI_Manager : MonoBehaviour
     [Header("Settings Menu")]
     public TMP_InputField changeNameSettingsInput;
     public TMP_Text changeNamesettingsError;
+
+    [Header("PowerUps Visual")]
+    public GameObject healthPowerUpPartical;
+    public GameObject oxygenPowerUpPartical;
+    public GameObject shieldPowerUpPartical;
     void Start()
     {
         gameplayCanvas.SetActive(false);

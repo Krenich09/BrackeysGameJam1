@@ -5,12 +5,14 @@ using UnityEngine;
 public class OxygenBubble : MonoBehaviour
 {
 
-    void OnCollisionEnter2D(Collision2D collision)
+    /// <param name="other">The other Collider2D involved in this collision.</param>
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerController>().oxygenAmount += 50;
-            collision.gameObject.GetComponent<PlayerController>().oxygenAmount = Mathf.Clamp(collision.gameObject.GetComponent<PlayerController>().oxygenAmount, 0, collision.gameObject.GetComponent<PlayerController>().maxOxygen);
+            Instantiate(UI_Manager.instance.oxygenPowerUpPartical, transform.position, Quaternion.identity);
+            other.gameObject.GetComponent<PlayerController>().oxygenAmount += 50;
+            other.gameObject.GetComponent<PlayerController>().oxygenAmount = Mathf.Clamp(other.gameObject.GetComponent<PlayerController>().oxygenAmount, 0, other.gameObject.GetComponent<PlayerController>().maxOxygen);
             Destroy(gameObject);
 
         }

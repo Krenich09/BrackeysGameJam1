@@ -23,13 +23,18 @@ public class bombObstacle : I_Obstacle
 
                 if(!rb) continue;
 
-                if(rb.gameObject.CompareTag("Player") && GameManager.instance.powerUps.shieldOn) return;
+                if(rb.gameObject.CompareTag("Player") && GameManager.instance.powerUps.shieldOn) continue;
                 if (rb.gameObject.CompareTag("Player"))
                 {
                     GameManager.instance.controller.freezePlayer(1);
                 }
                 Vector2 direction  = (colliders[i].transform.position - transform.position).normalized;
                 Debug.Log(rb.name);
+
+                if (rb.gameObject.CompareTag("Obstacle"))
+                {
+                    explostionForce /= 2;
+                }
                 rb.AddForce(direction * explostionForce, ForceMode2D.Impulse);
             }
         }

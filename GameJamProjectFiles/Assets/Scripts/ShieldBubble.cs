@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class ShieldBubble : MonoBehaviour
 {
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerController>().ShieldPowerUp();
+            Instantiate(UI_Manager.instance.shieldPowerUpPartical, transform.position, Quaternion.identity);
+            GameManager.instance.powerUps.ShieldPowerUp();
             Destroy(gameObject);
 
         }
