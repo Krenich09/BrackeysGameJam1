@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     public CameraController camController;
     public RandomObsticalSpawn randomObsticalSpawn;
     public HealthSystem healthSystem;
-    public PowerUps powerUps;
     public PlayfabManager playfabManager;
     public bool gameEnded;
     public bool gameStarted;

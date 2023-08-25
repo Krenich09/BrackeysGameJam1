@@ -12,5 +12,9 @@ public class HealthPowerUp : MonoBehaviour
             Destroy(gameObject);
 
         }
+        if (collision.gameObject.CompareTag("Barrier"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
