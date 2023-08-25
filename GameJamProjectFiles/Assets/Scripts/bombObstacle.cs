@@ -23,9 +23,8 @@ public class bombObstacle : I_Obstacle
 
                 if(!rb) continue;
 
-                if(rb.gameObject.CompareTag("Player") && GameManager.instance.powerUps.shieldOn) continue;
-
-                if(rb.gameObject.CompareTag("Player"))
+                if(rb.gameObject.CompareTag("Player") && GameManager.instance.powerUps.shieldOn) return;
+                if (rb.gameObject.CompareTag("Player"))
                 {
                     GameManager.instance.controller.freezePlayer(1);
                 }

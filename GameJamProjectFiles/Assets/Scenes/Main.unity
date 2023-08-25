@@ -313,10 +313,12 @@ MonoBehaviour:
   spawnNearTarget: {fileID: 1448811780}
   objectsToSpawn:
   - {fileID: 936210906923944341, guid: b55d6bfa0c6065d43924e795ac4e9004, type: 3}
+  - {fileID: 8754865405319574262, guid: 2010981f40ee59c4a8d37824d8aca326, type: 3}
   spawnProbabilities:
+  - 10
   - 1
   spawnDistanceDown: 10
-  spawnInterval: 2
+  spawnInterval: 0.5
   spawnParent: {fileID: 1560170557}
   doSpawn: 0
 --- !u!114 &3670287
@@ -5355,7 +5357,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 10.000061, y: 9.999878}
+  m_AnchoredPosition: {x: 10, y: 9.999878}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &607322417
