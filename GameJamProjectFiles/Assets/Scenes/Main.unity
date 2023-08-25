@@ -315,9 +315,11 @@ MonoBehaviour:
   - {fileID: 936210906923944341, guid: b55d6bfa0c6065d43924e795ac4e9004, type: 3}
   - {fileID: 8754865405319574262, guid: 2010981f40ee59c4a8d37824d8aca326, type: 3}
   - {fileID: 936210906923944341, guid: d4ec7e56081bf1d4c82f0599b5180cb0, type: 3}
+  - {fileID: 5626874024932982522, guid: 6ac7a45fb10926a4894f08fd080aa428, type: 3}
   spawnProbabilities:
   - 100
   - 10
+  - 1
   - 1
   spawnDistanceDown: 10
   spawnInterval: 0.5
