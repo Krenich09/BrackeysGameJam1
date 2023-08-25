@@ -9,7 +9,8 @@ public class OxygenBubble : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerController>().oxygenAmount = 100;
+            collision.gameObject.GetComponent<PlayerController>().oxygenAmount += 50;
+            collision.gameObject.GetComponent<PlayerController>().oxygenAmount = Mathf.Clamp(collision.gameObject.GetComponent<PlayerController>().oxygenAmount, 0, collision.gameObject.GetComponent<PlayerController>().maxOxygen);
             Destroy(gameObject);
 
         }
