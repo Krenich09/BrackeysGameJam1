@@ -70,7 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTag: Player
   hitOnce: 0
-  explosionPartical: {fileID: 9098217463504908960, guid: 04e6da944819d23449e3224a13081d89, type: 3}
+  explosionPartical: {fileID: 2229860745698740634, guid: 7c0e3bf3a087f8747bb57900cc65512b, type: 3}
   rb: {fileID: 936210906923944346}
   explosionRad: 5
   explostionForce: 7
