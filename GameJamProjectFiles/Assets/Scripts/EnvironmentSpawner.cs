@@ -14,7 +14,7 @@ public class EnvironmentSpawner : MonoBehaviour
     private spawnablePlatform currentPlatform;
 
     [SerializeField]
-    private GameObject platformPrefab;
+    private GameObject[] platformPrefabs;
 
     [SerializeField]
     private Transform playerTransform;
@@ -49,7 +49,9 @@ public class EnvironmentSpawner : MonoBehaviour
 
     void SpawnPlatform()
     {
-        spawnablePlatform platformSpawned = Instantiate(platformPrefab, currentPlatform.endPoint.position, Quaternion.identity, levelParent).GetComponent<spawnablePlatform>();
+        int randomPlatform = Random.Range(0, platformPrefabs.Length);
+        Debug.Log("Spawned Platform: " + randomPlatform);
+        spawnablePlatform platformSpawned = Instantiate(platformPrefabs[randomPlatform], currentPlatform.endPoint.position, Quaternion.identity, levelParent).GetComponent<spawnablePlatform>();
         currentPlatformsList.Add(platformSpawned);
         currentPlatform = platformSpawned;
         DeleteLastPlatform();
