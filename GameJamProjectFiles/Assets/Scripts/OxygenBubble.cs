@@ -14,9 +14,5 @@ public class OxygenBubble : MonoBehaviour
             Destroy(gameObject);
 
         }
-        if (collision.gameObject.CompareTag("Barrier"))
-        {
-            Destroy(gameObject);
-        }
     }
 }
