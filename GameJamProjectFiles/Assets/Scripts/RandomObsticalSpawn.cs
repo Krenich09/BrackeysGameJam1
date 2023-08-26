@@ -39,6 +39,13 @@ public class RandomObsticalSpawn : MonoBehaviour
 
     public void SpawnObjectAtPosition(Vector3 position, GameObject[] objectsToSpawn)
     {
+
+        if(Physics2D.OverlapCircle(position, 2))
+        {
+            Debug.Log("Canceled Object Spawn due to overlap");
+            return;
+        }
+
         if (objectsToSpawn.Length == 0 || spawnProbabilities.Count != objectsToSpawn.Length)
         {
             Debug.LogError("Number of objects to spawn and spawn probabilities list must match.");

@@ -27,7 +27,7 @@ public class HealthSystem : MonoBehaviour
     {
         if (currentHearts > 0)
         {
-            heartIcons[currentHearts - 1].gameObject.SetActive(false);
+            heartIcons[currentHearts - 1].gameObject.GetComponent<Animator>().SetTrigger("die");
             currentHearts--;
 
             if (currentHearts == 0)

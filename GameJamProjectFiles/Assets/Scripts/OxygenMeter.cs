@@ -7,16 +7,18 @@ public class OxygenMeter : MonoBehaviour
 {
     public GameObject fillImage;
 
-    private PlayerController pc;
+    private PlayerController controller;
 
     private void Start()
     {
-        pc = FindAnyObjectByType<PlayerController>();
+        controller = FindAnyObjectByType<PlayerController>();
     }
 
+    float velocityRef;
     // Update is called once per frame
     void Update()
     {
-        fillImage.GetComponent<Image>().fillAmount = pc.oxygenAmount / pc.maxOxygen;
+        float smoothedTarget = Mathf.SmoothDamp(fillImage.GetComponent<Image>().fillAmount, controller.oxygenAmount / controller.maxOxygen, ref velocityRef, 0.1f);
+        fillImage.GetComponent<Image>().fillAmount = smoothedTarget;
     }
 }

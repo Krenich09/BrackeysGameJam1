@@ -36,11 +36,18 @@ public class UI_Manager : MonoBehaviour
     public Image shieldVisualImage;
     public GameObject ShildObject;
 
+
+    [Header("Sounds UI")]
+    public Slider sfxSlider;
+    public Slider musicSlider;
+
     void Start()
     {
         gameplayCanvas.SetActive(false);
         startGameCanvas.SetActive(true);
         instance = this;
+
+        SoundManager.instance.musicSource.volume = SoundManager.instance.currentVolumeMusic;
     }
     float refVelocity; // ignore this
     void Update()
@@ -85,9 +92,29 @@ public class UI_Manager : MonoBehaviour
         heightLine.position = new Vector3(GameManager.instance.controller.transform.position.x, -GameManager.instance.meter.currentHighScore, 0);
     }
 
+
+    public void setVolumeSFX(float vol)
+    {
+        SoundManager.instance.currentVolumeSFX = vol;
+        PlayerPrefs.SetFloat("sfx", SoundManager.instance.currentVolumeSFX);
+    }
+    public void GetSoundSliders()
+    {
+        sfxSlider.value = SoundManager.instance.currentVolumeSFX;
+        musicSlider.value = SoundManager.instance.currentVolumeMusic;
+    }
+
+    public void setVolumeMusic(float vol)
+    {
+        SoundManager.instance.currentVolumeMusic = vol;
+        PlayerPrefs.SetFloat("music", SoundManager.instance.currentVolumeMusic);
+        SoundManager.instance.musicSource.volume = musicSlider.value;
+    }
+
     public void startGameBtnClick()
     {
         GameManager.instance.gameStarted = true;
+        SoundManager.instance.musicSource.volume /= 2f;
         gameplayCanvas.SetActive(true);
         startGameCanvas.SetActive(false);
         GameManager.instance.camController.target = GameManager.instance.controller.transform;

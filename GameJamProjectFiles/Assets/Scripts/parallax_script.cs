@@ -19,7 +19,7 @@ public class parallax_script : MonoBehaviour
     {
         spriteren=GetComponentsInChildren<SpriteRenderer>();
         startposition=transform.position;
-        for(int i=0;i<3;i++)
+        for(int i=0;i<spriteren.Length;i++)
         {
             spriteren[i].sprite=bacground_image;
             spriteren[i].sortingOrder=layer_order;

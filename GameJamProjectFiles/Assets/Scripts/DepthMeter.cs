@@ -11,6 +11,8 @@ public class DepthMeter : MonoBehaviour
     private GameObject player;
     private float distance;
     [HideInInspector] public float currentHighScore;
+    public Animator sourceAnim;
+    public float lastDistanceCalled = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +29,13 @@ public class DepthMeter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Mathf.FloorToInt(currentHighScore / 100f) > Mathf.FloorToInt(lastDistanceCalled / 100f))
+        {
+            lastDistanceCalled = currentHighScore;
+            sourceAnim.SetTrigger("milestone");
+        }
+
+
         CalculateDistance();
         if (distance > 50 && distance < 100)
         {
