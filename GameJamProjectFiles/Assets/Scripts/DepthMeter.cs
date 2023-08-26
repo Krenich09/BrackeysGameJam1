@@ -140,6 +140,17 @@ public class DepthMeter : MonoBehaviour
 
                         break;
 
+                    case 5:
+
+                        numberText[5].text = numberChars[0].ToString();
+                        numberText[4].text = numberChars[1].ToString();
+                        numberText[3].text = numberChars[2].ToString();
+                        numberText[2].text = numberChars[3].ToString();
+                        numberText[1].text = numberChars[4].ToString();
+                        numberText[0].text = numberChars[5].ToString();
+
+                        break;
+
                     default:
                         break;
                 }
