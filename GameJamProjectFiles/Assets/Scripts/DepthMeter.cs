@@ -9,7 +9,7 @@ public class DepthMeter : MonoBehaviour
     [SerializeField] private TextMeshProUGUI[] numberText;
 
     private GameObject player;
-    private float distance;
+    public float distance;
     [HideInInspector] public float currentHighScore;
 
     // Start is called before the first frame update
@@ -44,11 +44,11 @@ public class DepthMeter : MonoBehaviour
         {
             GameManager.instance.randomObsticalSpawn.spawnInterval = 0.6f;
         }
-        if (distance > 250 && distance < 500)
+        if (distance > 250 && distance < 300)
         {
             GameManager.instance.randomObsticalSpawn.spawnInterval = 0.5f;
         }
-        if (distance > 500 && distance < 700)
+        if (distance > 300 && distance < 700)
         {
             GameManager.instance.randomObsticalSpawn.spawnInterval = 0.4f;
         }
