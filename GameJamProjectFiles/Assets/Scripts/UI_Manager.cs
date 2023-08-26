@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 using TMPro;
 public class UI_Manager : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class UI_Manager : MonoBehaviour
     public GameObject healthPowerUpPartical;
     public GameObject oxygenPowerUpPartical;
     public GameObject shieldPowerUpPartical;
+
+
     void Start()
     {
         gameplayCanvas.SetActive(false);
@@ -114,4 +117,7 @@ public class UI_Manager : MonoBehaviour
             Time.timeScale = 1;
         }
     } 
+
+
+    
 }

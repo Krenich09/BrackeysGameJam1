@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
         playfabManager.sendLeaderboard(Mathf.RoundToInt(meter.currentHighScore));
     }
 
-
     public void restartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
