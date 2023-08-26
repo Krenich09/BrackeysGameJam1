@@ -19,7 +19,8 @@ public class GameManager : MonoBehaviour
     public PlayfabManager playfabManager;
     public bool gameEnded;
     public bool gameStarted;
-    public Light2D globalLight;
+    public Light2D globalLight, playerFlashLight;
+    public float minLightIntensity = 0.4f;
 
     void Start()
     {
@@ -64,11 +65,17 @@ public class GameManager : MonoBehaviour
     {
         if(controller.transform.position.y <= -20)
         {
+            playerFlashLight.intensity += Time.deltaTime * 0.1f;
+            playerFlashLight.intensity = Mathf.Clamp(playerFlashLight.intensity, playerFlashLight.intensity, 0.67f);
+                
             globalLight.intensity -= Time.deltaTime * 0.1f;
-            globalLight.intensity = Mathf.Clamp(globalLight.intensity, 0.5f, 1f);
+            globalLight.intensity = Mathf.Clamp(globalLight.intensity, minLightIntensity, 1f);
         }
         else
         {
+            playerFlashLight.intensity -= Time.deltaTime * 0.1f;
+            playerFlashLight.intensity = Mathf.Clamp(playerFlashLight.intensity, 0, 0.67f);
+
             globalLight.intensity += Time.deltaTime * 0.1f;
             globalLight.intensity = Mathf.Clamp01(globalLight.intensity);
         }

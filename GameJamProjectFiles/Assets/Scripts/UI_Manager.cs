@@ -33,7 +33,8 @@ public class UI_Manager : MonoBehaviour
     public GameObject healthPowerUpPartical;
     public GameObject oxygenPowerUpPartical;
     public GameObject shieldPowerUpPartical;
-
+    public Image shieldVisualImage;
+    public GameObject ShildObject;
 
     void Start()
     {
@@ -56,6 +57,13 @@ public class UI_Manager : MonoBehaviour
             else
             {
                 dashDelayCircle.fillAmount = 0;
+            }
+
+
+            ShildObject.SetActive(GameManager.instance.powerUps.shieldOn);
+            if(ShildObject.activeSelf)
+            {
+                ShildObject.transform.position = GameManager.instance.controller.transform.position;
             }
         }
         else

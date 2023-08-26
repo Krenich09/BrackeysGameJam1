@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            vectorTargetpos = Vector3.up * 3;
+            vectorTargetpos = transform.position;
         }
 
 

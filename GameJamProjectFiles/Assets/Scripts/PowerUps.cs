@@ -7,24 +7,41 @@ public class PowerUps : MonoBehaviour
     public GameObject Player;
     private bool ShieldCooled = true;
     public bool shieldOn;
+
+    public float shieldDuration = 10f;
+    public float currentShieldDuration;
     private void Start()
     {
         Player = FindAnyObjectByType<PlayerController>().gameObject;
+        currentShieldDuration = shieldDuration;
     }
 
     public void ShieldPowerUp()
     {
         if (ShieldCooled)
         {
-            StartCoroutine(Sheild());
+            currentShieldDuration = shieldDuration;
+            shieldOn = true;
         }
     }
-
-    IEnumerator Sheild()
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
     {
-        shieldOn = true;
-        yield return new WaitForSeconds(10f);
-        shieldOn = false;
+        if(shieldOn)
+        {
+            currentShieldDuration -= Time.deltaTime;
+            UI_Manager.instance.shieldVisualImage.fillAmount = currentShieldDuration / shieldDuration;
+            if(currentShieldDuration <= 0)
+            {
+                shieldOn = false;
+            }
+        }
+        else
+        {
+            currentShieldDuration = shieldDuration;
+        }
     }
 
 }

@@ -16,6 +16,10 @@ public class EnvironmentSpawner : MonoBehaviour
     [SerializeField]
     private GameObject[] platformPrefabs;
 
+    [SerializeField] private GameObject[] Special_platformPrefabs;
+    public float volcanoBiome = 300f; 
+    public float specialSpawnPercantage = 5f;
+
     [SerializeField]
     private Transform playerTransform;
 
@@ -25,10 +29,15 @@ public class EnvironmentSpawner : MonoBehaviour
     [SerializeField]
     private Transform levelParent;
 
+    private float startPercantageVolcano;
+    private float lastDistanceCalled = 0f;
+
     void Start()
     {
         currentPlatformsList.Add(startingPlatform);
         currentPlatform = startingPlatform;
+        volcanoBiome = Random.Range(150f, 300f);
+        startPercantageVolcano = specialSpawnPercantage;
     }
 
     /// <summary>
@@ -40,18 +49,65 @@ public class EnvironmentSpawner : MonoBehaviour
         {
             float currentSpawnDistance = Vector2.Distance(playerTransform.position, currentPlatform.endPoint.position);
 
+
+            if (Mathf.FloorToInt(GameManager.instance.meter.currentHighScore / volcanoBiome) > Mathf.FloorToInt(lastDistanceCalled / volcanoBiome))
+            {
+                lastDistanceCalled = GameManager.instance.meter.currentHighScore;
+                ActivateForDistance(60);
+            }
+
             if(currentSpawnDistance < spawnDistance)
             {
-                SpawnPlatform();
+                if(spawnSpecial(specialSpawnPercantage))
+                {
+                    SpawnPlatform(Special_platformPrefabs);
+                }
+                else
+                {
+                    SpawnPlatform(platformPrefabs);
+                }
             }
         }
     }
 
-    void SpawnPlatform()
+    private void ActivateForDistance(float distance)
     {
-        int randomPlatform = Random.Range(0, platformPrefabs.Length);
+        StartCoroutine(setVolcanoFor(distance));
+    }
+
+    private IEnumerator setVolcanoFor(float distance)
+    {
+        specialSpawnPercantage = 95f;
+
+        float startingDistance = GameManager.instance.meter.currentHighScore;
+
+        while (GameManager.instance.meter.currentHighScore - startingDistance < distance)
+        {
+            yield return null; // Wait for the next frame
+        }
+
+        specialSpawnPercantage = startPercantageVolcano;
+    }
+
+    private System.Random random = new System.Random();
+
+    private bool spawnSpecial(float spawnRate)
+    {
+        if (random.NextDouble() < 1 - (spawnRate / 100))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    void SpawnPlatform(GameObject[] platforms)
+    {
+        int randomPlatform = Random.Range(0, platforms.Length);
         Debug.Log("Spawned Platform: " + randomPlatform);
-        spawnablePlatform platformSpawned = Instantiate(platformPrefabs[randomPlatform], currentPlatform.endPoint.position, Quaternion.identity, levelParent).GetComponent<spawnablePlatform>();
+        spawnablePlatform platformSpawned = Instantiate(platforms[randomPlatform], currentPlatform.endPoint.position, Quaternion.identity, levelParent).GetComponent<spawnablePlatform>();
         currentPlatformsList.Add(platformSpawned);
         currentPlatform = platformSpawned;
         DeleteLastPlatform();
