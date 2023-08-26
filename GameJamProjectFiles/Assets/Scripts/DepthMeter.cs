@@ -9,7 +9,7 @@ public class DepthMeter : MonoBehaviour
     [SerializeField] private TextMeshProUGUI[] numberText;
 
     private GameObject player;
-    private float distance;
+    public float distance;
     [HideInInspector] public float currentHighScore;
     public Animator sourceAnim;
     public float lastDistanceCalled = 0;
@@ -37,35 +37,35 @@ public class DepthMeter : MonoBehaviour
 
 
         CalculateDistance();
-        if (distance > 50 && distance < 100)
+        if (distance > 25 && distance < 50)
         {
             GameManager.instance.randomObsticalSpawn.spawnInterval = 0.9f;
         }
-        if (distance > 100 && distance < 150)
+        if (distance > 50 && distance < 75)
         {
             GameManager.instance.randomObsticalSpawn.spawnInterval = 0.8f;
         }
-        if (distance > 150 && distance < 200)
+        if (distance > 75 && distance < 100)
         {
             GameManager.instance.randomObsticalSpawn.spawnInterval = 0.7f;
         }
-        if (distance > 200 && distance < 250)
+        if (distance > 100 && distance < 150)
         {
             GameManager.instance.randomObsticalSpawn.spawnInterval = 0.6f;
         }
-        if (distance > 250 && distance < 500)
+        if (distance > 150 && distance < 200)
         {
             GameManager.instance.randomObsticalSpawn.spawnInterval = 0.5f;
         }
-        if (distance > 500 && distance < 700)
+        if (distance > 200 && distance < 300)
         {
             GameManager.instance.randomObsticalSpawn.spawnInterval = 0.4f;
         }
-        if (distance > 700 && distance < 1000)
+        if (distance > 300 && distance < 400)
         {
             GameManager.instance.randomObsticalSpawn.spawnInterval = 0.3f;
         }
-        if (distance > 1000)
+        if (distance > 500)
         {
             GameManager.instance.randomObsticalSpawn.spawnInterval = 0.25f;
         }
