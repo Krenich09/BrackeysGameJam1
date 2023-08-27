@@ -13,7 +13,7 @@ public class bombObstacle : I_Obstacle
     public override void onHit()
     {
         if(hitOnce) return;
-
+        SoundManager.instance.playExplosion();
         if (rb)
         {
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRad);

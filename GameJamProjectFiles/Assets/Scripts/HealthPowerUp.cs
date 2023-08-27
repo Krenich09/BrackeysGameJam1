@@ -10,6 +10,7 @@ public class HealthPowerUp : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Instantiate(UI_Manager.instance.healthPowerUpPartical, transform.position, Quaternion.identity);
+            SoundManager.instance.playSatisfyingClip();
             GameManager.instance.healthSystem.Heal();
             Destroy(gameObject);
 

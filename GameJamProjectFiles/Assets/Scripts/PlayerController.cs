@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     private float startRotationSpeed;
     Vector2 refVelocity;
     [HideInInspector] public float dashDelayCurrent;
+    public GameObject engineParticals;
+    public bool isFacingWall;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -48,9 +50,18 @@ public class PlayerController : MonoBehaviour
     {
         if(GameManager.instance.gameStarted == false || GameManager.instance.gameEnded == true) return;
 
+        isFacingWall = Physics2D.OverlapCircle(transform.position + transform.up * 0.8f, 0.3f, groundLayer);
+
+        ParticleSystem ps = engineParticals.GetComponent<ParticleSystem>();
+        var em = ps.emission;
+        em.enabled = Input.GetKey(KeyCode.W) && canMove && !isFacingWall;
+        
+
+
+
         if(Input.GetKey(KeyCode.W) && canMove)
         {
-            if(!Physics2D.OverlapCircle(transform.position + transform.up * 0.3f, 0.3f, groundLayer))
+            if(!isFacingWall)
             {
                 movement();
                 dashMovement();
@@ -90,6 +101,7 @@ public class PlayerController : MonoBehaviour
         {
             dashDelayCurrent = dashDelay;
             Instantiate(dashParticalPrefab, dashParticalPoint.position, quaternion.identity); // Spawn Partical Prefab
+            SoundManager.instance.playDash();
             sineX = 0;
             movementSineForce *= dashFroce;
         }
@@ -133,7 +145,7 @@ public class PlayerController : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position + transform.up  * 0.3f, 0.3f);
+        Gizmos.DrawWireSphere(transform.position + transform.up * 0.8f, 0.3f);
     }
 
     public void freezePlayer(float time)

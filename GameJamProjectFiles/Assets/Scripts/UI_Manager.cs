@@ -73,6 +73,7 @@ public class UI_Manager : MonoBehaviour
                 ShildObject.transform.position = GameManager.instance.controller.transform.position;
             }
         }
+        
         else
         {
             heightLine.gameObject.SetActive(false);
@@ -104,6 +105,15 @@ public class UI_Manager : MonoBehaviour
         musicSlider.value = SoundManager.instance.currentVolumeMusic;
     }
 
+    public void playEngineSound()
+    {
+        AudioSource source = Instantiate(SoundManager.instance.sourcePrefab, transform);
+        source.volume = 0f;
+        source.clip = SoundManager.instance.engineSoundClip;
+        source.loop = true;
+        source.Play();
+        SoundManager.instance.engineSource = source;
+    }
     public void setVolumeMusic(float vol)
     {
         SoundManager.instance.currentVolumeMusic = vol;
@@ -111,10 +121,19 @@ public class UI_Manager : MonoBehaviour
         SoundManager.instance.musicSource.volume = musicSlider.value;
     }
 
+
+
     public void startGameBtnClick()
     {
+        playEngineSound();
+        AudioSource source = Instantiate(SoundManager.instance.sourcePrefab, transform);
+        source.volume = 0.6f * SoundManager.instance.currentVolumeSFX;
+        source.clip = SoundManager.instance.underwaterClip;
+        source.loop = true;
+        source.Play();
+
         GameManager.instance.gameStarted = true;
-        SoundManager.instance.musicSource.volume /= 2f;
+        SoundManager.instance.musicSource.volume /= 3f;
         gameplayCanvas.SetActive(true);
         startGameCanvas.SetActive(false);
         GameManager.instance.camController.target = GameManager.instance.controller.transform;

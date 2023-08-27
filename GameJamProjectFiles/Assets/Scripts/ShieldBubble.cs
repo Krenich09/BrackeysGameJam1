@@ -8,6 +8,7 @@ public class ShieldBubble : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            SoundManager.instance.playSatisfyingClip();
             Instantiate(UI_Manager.instance.shieldPowerUpPartical, transform.position, Quaternion.identity);
             GameManager.instance.powerUps.ShieldPowerUp();
             Destroy(gameObject);
